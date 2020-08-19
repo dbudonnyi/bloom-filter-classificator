@@ -1,0 +1,12 @@
+version: "3.2"
+services:
+  server_consumer:
+    build: server_consumer
+    volumes:
+      - "/Users/dbudonnyi/Desktop/Diploma/master_degree/bloom_filter_classificator/server_consumer/server_consumer:/opt/server_consumer"
+  client_producer:
+    build: client_producer
+    depends_on:
+      - server_consumer 
+    volumes:
+      - "/Users/dbudonnyi/Desktop/Diploma/master_degree/bloom_filter_classificator/client_producer/client_producer:/opt/client_producer"
