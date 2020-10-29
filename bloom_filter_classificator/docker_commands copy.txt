@@ -1,6 +1,6 @@
 Kafka:
 docker build -t broker_kafka:1.0 .
-docker run --rm -a STDIN -a STDOUT -a STDERR -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=192.168.1.114 --env ADVERTISED_PORT=9092 --env CONSUMER_THREADS=2 --env NUM_PARTITIONS=2 --env AUTO_CREATE_TOPICS --env TOPICS=bloom_topic --env GROUP_ID=1 --name kafka broker_kafka:1.0
+docker run --rm -a STDIN -a STDOUT -a STDERR -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=172.20.10.3 --env ADVERTISED_PORT=9092 --env CONSUMER_THREADS=12 --env NUM_PARTITIONS=12 --env AUTO_CREATE_TOPICS --env TOPICS=bloom_topic --env GROUP_ID=1 --name kafka broker_kafka:1.0
 
 export KAFKA=10.46.207.99:9092
 kafka-console-producer.sh --broker-list $KAFKA --topic test
@@ -9,17 +9,17 @@ kafka-console-consumer.sh --zookeeper $ZOOKEEPER --topic test
 
 Service
 docker build -t client_producer:1.0 .
-docker run --rm -a STDIN -a STDOUT -a STDERR -v /Users/dbudonnyi/Desktop/Diploma/master_degree⁩/⁨bloom_filter_classificator⁩/client_producer:/etc/client_producer --name client_producer client_producer:1.0
+docker run --rm -a STDIN -a STDOUT -a STDERR -v /Users/dbudonnyi/Documents/DiplomaKPI/bloom-filter-classificator/⁨bloom_filter_classificator⁩/client_producer/client_producer:/etc/client_producer --name client_producer client_producer:1.0
 docker run --rm -a STDIN -a STDOUT -a STDERR --name client_producer client_producer:1.0
 
 
 Server
 docker build -t server_consumer:1.0 .
-docker run --rm -a STDIN -a STDOUT -a STDERR -v /Users/dbudonnyi/Desktop/Diploma/master_degree/bloom_filter_classificator/server_consumer/server_consumer/:/etc/server_consumer --name server_consumer server_consumer:1.0
+docker run --rm -a STDIN -a STDOUT -a STDERR -v /Users/dbudonnyi/Documents/DiplomaKPI/bloom-filter-classificator/bloom_filter_classificator/server_consumer/server_consumer/:/etc/server_consumer --name server_consumer server_consumer:1.0
 
 /opt/kafka_2.11-0.10.1.0/bin/
 ./kafka-console-producer.sh --broker-list localhost:9092 --topic topic
 ./kafka-console-consumer.sh --bootstrap-server 192.168.1.112:9092 --topic topic --from-beginning
 
 
-docker-compose up --scale server_consumer=3 --scale client_producer=1
+docker-compose up --scale server_consumer=12 --scale client_producer=1

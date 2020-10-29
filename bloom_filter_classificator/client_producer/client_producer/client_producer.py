@@ -7,7 +7,7 @@ import time
 
 logging.basicConfig(format='[%(asctime)s][%(levelname)s] %(message)s')
 KAFKA_TOPIC = 'bloom_topic'
-KAFKA_CLIENT_IP = '192.168.1.104:9092'#.format(socket.gethostbyname(socket.gethostname()))
+KAFKA_CLIENT_IP = '172.20.10.3:9092'#.format(socket.gethostbyname(socket.gethostname()))
 
 
 class ClientBloomClassificator():
